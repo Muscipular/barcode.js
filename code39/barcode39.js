@@ -1,109 +1,23 @@
-var Black = '#000';
-var White = '#fff';
-
 var Code39 = ClassCreator.Create(['char', 'code'], {
 	ctor: function(char, code) {
 		this.char = char;
 		this.code = code;
 	},
-	draw: function(panel, offset, isBlack) {
-		isBlack = true;
+	draw: function(panel, offset) {
 		for(var i = 0; i < 9; i++) {
-			var width = this.code[i] & 1 ? 5 : 2;
-			panel.fillStyle = isBlack ? Black : White;
-			isBlack = !isBlack;
-			panel.fillRect(offset, 0, width, 200);
+			var width = this.code[i] & 1 ? Code39.Rate * Code39.Weight : Code39.Weight;
+			panel.fillStyle = i & 1 ? Code39.White : Code39.Black;
+			panel.fillRect(offset, 0, width, Code39.Height);
 			offset = offset + width;
 		};
-		panel.fillStyle = White;
-		panel.fillRect(offset, 0, 2, 200);
-		return offset+2; // + 1;
+		panel.fillStyle = Code39.White;
+		panel.fillRect(offset, 0, Code39.Weight, Code39.Height);
+		return offset + Code39.Weight;
 	}
+}, {
+	Black: '#000',
+	White: '#fff',
+	Weight: 2,
+	Rate: 2.5,
+	Height: 200,
 });
-
-var Code39List = [
-	new Code39('0', [0, 0, 0, 1, 1, 0, 1, 0, 0]),
-	new Code39('1', [1, 0, 0, 1, 0, 0, 0, 0, 1]),
-	new Code39('2', [0, 0, 1, 1, 0, 0, 0, 0, 1]),
-	new Code39('3', [1, 0, 1, 1, 0, 0, 0, 0, 0]),
-	new Code39('4', [0, 0, 0, 1, 1, 0, 0, 0, 1]),
-	new Code39('5', [1, 0, 0, 1, 1, 0, 0, 0, 0]),
-	new Code39('6', [0, 0, 1, 1, 1, 0, 0, 0, 0]),
-	new Code39('7', [0, 0, 0, 1, 0, 0, 1, 0, 1]),
-	new Code39('8', [1, 0, 0, 1, 0, 0, 1, 0, 0]),
-	new Code39('9', [0, 0, 1, 1, 0, 0, 1, 0, 0]),
-	new Code39('A', [1, 0, 0, 0, 0, 1, 0, 0, 1]),
-	new Code39('B', [0, 0, 1, 0, 0, 1, 0, 0, 1]),
-	new Code39('C', [1, 0, 1, 0, 0, 1, 0, 0, 0]),
-	new Code39('D', [0, 0, 0, 0, 1, 1, 0, 0, 1]),
-	new Code39('E', [1, 0, 0, 0, 1, 1, 0, 0, 0]),
-	new Code39('F', [0, 0, 1, 0, 1, 1, 0, 0, 0]),
-	new Code39('G', [0, 0, 0, 0, 0, 1, 1, 0, 1]),
-	new Code39('H', [1, 0, 0, 0, 0, 1, 1, 0, 0]),
-	new Code39('I', [0, 0, 1, 0, 0, 1, 1, 0, 1]),
-	new Code39('J', [0, 0, 0, 0, 1, 1, 1, 0, 0]),
-	new Code39('K', [1, 0, 0, 0, 0, 0, 0, 1, 1]),
-	new Code39('L', [0, 0, 1, 0, 0, 0, 0, 1, 1]),
-	new Code39('M', [1, 0, 1, 0, 0, 0, 0, 1, 0]),
-	new Code39('N', [0, 0, 0, 0, 1, 0, 0, 1, 1]),
-	new Code39('O', [1, 0, 0, 0, 1, 0, 0, 1, 0]),
-	new Code39('P', [0, 0, 1, 0, 1, 0, 0, 1, 0]),
-	new Code39('Q', [0, 0, 0, 0, 0, 0, 1, 1, 1]),
-	new Code39('R', [1, 0, 0, 0, 0, 0, 1, 1, 0]),
-	new Code39('S', [0, 0, 1, 0, 0, 0, 1, 1, 0]),
-	new Code39('T', [0, 0, 0, 0, 1, 0, 1, 1, 0]),
-	new Code39('U', [1, 1, 0, 0, 0, 0, 0, 0, 1]),
-	new Code39('V', [0, 1, 1, 0, 0, 0, 0, 0, 1]),
-	new Code39('W', [1, 1, 1, 0, 0, 0, 0, 0, 0]),
-	new Code39('X', [0, 1, 0, 0, 1, 0, 0, 0, 1]),
-	new Code39('Y', [1, 1, 0, 0, 1, 0, 0, 0, 0]),
-	new Code39('Z', [0, 1, 1, 0, 1, 0, 0, 0, 0]),
-	new Code39('-', [0, 1, 0, 0, 0, 0, 1, 0, 1]),
-	new Code39('%', [0, 0, 0, 1, 0, 1, 0, 1, 0]),
-	new Code39('$', [0, 1, 0, 1, 0, 1, 0, 0, 0]),
-	new Code39('*', [0, 1, 0, 0, 1, 0, 1, 0, 0]),
-	];
-
-
-/*
-	 new Code39('0',[0,0,0,1,1,0,1,0,0]), 
-     new Code39('1',[1,0,0,1,0,0,0,0,1]), 
-     new Code39('2',[0,0,1,1,0,0,0,0,1]), 
-     new Code39('3',[1,0,1,1,0,0,0,0,0]), 
-     new Code39('4',[0,0,0,1,1,0,0,0,1]), 
-     new Code39('5',[1,0,0,1,1,0,0,0,0]), 
-     new Code39('6',[0,0,1,1,1,0,0,0,0]), 
-     new Code39('7',[0,0,0,1,0,0,1,0,1]), 
-     new Code39('8',[1,0,0,1,0,0,1,0,0]), 
-     new Code39('9',[0,0,1,1,0,0,1,0,0]), 
-     new Code39('A',[1,0,0,0,0,1,0,0,1]), 
-     new Code39('B',[0,0,1,0,0,1,0,0,1]), 
-     new Code39('C',[1,0,1,0,0,1,0,0,0]), 
-     new Code39('D',[0,0,0,0,1,1,0,0,1]), 
-     new Code39('E',[1,0,0,0,1,1,0,0,0]), 
-     new Code39('F',[0,0,1,0,1,1,0,0,0]), 
-     new Code39('G',[0,0,0,0,0,1,1,0,1]), 
-     new Code39('H',[1,0,0,0,0,1,1,0,0]), 
-     new Code39('I',[0,0,1,0,0,1,1,0,1]), 
-     new Code39('J',[0,0,0,0,1,1,1,0,0]), 
-     new Code39('K',[1,0,0,0,0,0,0,1,1]), 
-     new Code39('L',[0,0,1,0,0,0,0,1,1]), 
-     new Code39('M',[1,0,1,0,0,0,0,1,0]), 
-     new Code39('N',[0,0,0,0,1,0,0,1,1]), 
-     new Code39('O',[1,0,0,0,1,0,0,1,0]), 
-     new Code39('P',[0,0,1,0,1,0,0,1,0]), 
-     new Code39('Q',[0,0,0,0,0,0,1,1,1]), 
-     new Code39('R',[1,0,0,0,0,0,1,1,0]), 
-     new Code39('S',[0,0,1,0,0,0,1,1,0]), 
-     new Code39('T',[0,0,0,0,1,0,1,1,0]), 
-     new Code39('U',[1,1,0,0,0,0,0,0,1]), 
-     new Code39('V',[0,1,1,0,0,0,0,0,1]), 
-     new Code39('W',[1,1,1,0,0,0,0,0,0]), 
-     new Code39('X',[0,1,0,0,1,0,0,0,1]), 
-     new Code39('Y',[1,1,0,0,1,0,0,0,0]), 
-     new Code39('Z',[0,1,1,0,1,0,0,0,0]), 
-     new Code39('-',[0,1,0,0,0,0,1,0,1]), 
-     new Code39('%',[0,0,0,1,0,1,0,1,0]), 
-     new Code39('$',[0,1,0,1,0,1,0,0,0]), 
-     new Code39('*',[0,1,0,0,1,0,1,0,0]),
-	*/
