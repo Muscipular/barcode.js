@@ -1,4 +1,4 @@
-var Code39 = ClassCreator.Create(['char', 'code'], {
+var Code39 = CommonHelper.CreateClass(['char', 'code'], {
 	ctor: function(char, code) {
 		this.char = char;
 		this.code = code;
