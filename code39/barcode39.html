@@ -4,9 +4,14 @@
 <head>
     <meta charset="utf-8" />
     <title></title>
-    <script type="text/javascript" src="CommonHelper.js"></script>
-    <script type="text/javascript" src="barcode39.js"></script>
-    <script type="text/javascript" src="draw39.js"></script>
+    <script type="text/javascript" src="./CommonHelper.js"></script>
+    <!--<script type="text/javascript" src="./barcode39.js"></script>-->
+    <script type="text/javascript" src="./draw39.js"></script>
+    <script type="text/javascript">
+    	window.addEventListener("load", function() {
+    		Code39Genner.Init('c1');
+    	});
+    </script>
 </head>
 <body>
 	<div style='margin:0 auto;width:800px;'>
